@@ -1,4 +1,13 @@
-﻿interface ICommand
+﻿Conveyor convoyer = new Conveyor();
+Multipult muptipult = new Multipult();
+muptipult.SetCommand(0, new ConvoyorWorkCommand(convoyer));
+muptipult.SetCommand(1, new ConvoyerAdjustCommand(convoyer));
+muptipult.PressOn(0);
+muptipult.PressOn(1);
+muptipult.PressCancel();
+muptipult.PressCancel();
+
+interface ICommand
 {
     void Positive();
     void Negative();
@@ -14,15 +23,15 @@ class ConvoyorWorkCommand : ICommand
 {
     private Conveyor convoyer;
     public ConvoyorWorkCommand(Conveyor _convoyer) => this.convoyer = _convoyer;
-    public void Negative() => convoyer.On();
-    public void Positive() => convoyer.Off();
+    public void Negative() => convoyer.Off();
+    public void Positive() => convoyer.On();
 }
 class ConvoyerAdjustCommand : ICommand
 {
     private Conveyor convoyer;
     public ConvoyerAdjustCommand(Conveyor _convoyer) => this.convoyer = _convoyer;
-    public void Negative() => convoyer.SpeedIncrease();
-    public void Positive() => convoyer.SpeedDecrease();
+    public void Negative() => convoyer.SpeedDecrease();
+    public void Positive() => convoyer.SpeedIncrease();
 }
 class Multipult
 {
